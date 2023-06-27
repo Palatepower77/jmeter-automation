@@ -21,9 +21,10 @@ jobs:
           path: result.csv
       - name: Check Result Errors
         run: |
-          if grep -q "FALSE" result.csv; then
-            echo "The CSV file contains 'FALSE'"
+          error_count=$(grep -c "Err:" result.jtl)
+          if [ "$error_count" -gt 0 ]; then
+            echo "There were errors in the JMeter result"
             exit 1
           else
-            echo "The CSV file does not contain 'FALSE'"
+            echo "No errors found in the JMeter result"
           fi          
