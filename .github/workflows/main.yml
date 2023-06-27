@@ -7,13 +7,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: PerfAction for JMeter
-        id: jmeter
         uses: QAInsights/PerfAction@v3.1
         with:
           test-plan-path: "./Palate_App.jmx"
+          args: "-l result.jtl -Jjmeter.save.saveservice.output_format=csv -Jjmeter.save.saveservice.response_data=true"
       - name: Convert JTL to CSV
         run: |
-          sed -e 's/<[^>]*>//g' result.jtl > result.csv
+          jmeter -g result.jtl -o result
+          mv result/response.csv result.csv
       - name: Upload Results
         uses: actions/upload-artifact@v2
         with:
@@ -28,4 +29,4 @@ jobs:
             exit 1
           else
             echo "No errors found in the JMeter result"
-          fi          
+          fi
