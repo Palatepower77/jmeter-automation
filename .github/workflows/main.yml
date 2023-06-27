@@ -22,7 +22,7 @@ jobs:
       - name: Check Result Errors
         run: |
           summary=$(echo "${{ steps.jmeter.outputs.output }}" | grep -o "summary +.*")
-          error_count=$(echo "$summary" | grep -o "Err: [1-9]*")
+          error_count=$(echo "$summary" | grep -o "Err: [0-9]*")
           if [ -n "$error_count" ]; then
             echo "There were errors in the JMeter result"
             exit 1
