@@ -7,6 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: PerfAction for JMeter
+        id: jmeter
         uses: QAInsights/PerfAction@v3.1
         with:
           test-plan-path: "./Palate_App.jmx"
@@ -18,3 +19,10 @@ jobs:
         with:
           name: jmeter-results
           path: result.csv
+      - name: Check Result Errors
+        run: |
+          error_count=$(grep -c "Err:" result.jtl)
+          if [ $error_count -gt 0 ]; then
+            echo "There were errors in the JMeter result"
+            exit 1
+          fi
