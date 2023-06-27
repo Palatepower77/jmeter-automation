@@ -21,10 +21,12 @@ jobs:
           path: result.csv
       - name: Check Result Errors
         run: |
-          error_count=$(grep -c "Err:" result.jtl | grep -v "Shutdown/StopTestNow/HeapDump/ThreadDump")
-          if [ $error_count -gt 0 ]; then
+          error_count=$(grep -c "Err:" result.jtl | grep -v "Shutdown/StopTestNow/HeapDump/ThreadDump" || true)
+          if [ "$error_count" -gt 0 ]; then
             echo "There were errors in the JMeter result"
             exit 1
+          else
+            echo "No errors found in the JMeter result"
           fi
           
           
