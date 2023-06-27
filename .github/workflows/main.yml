@@ -27,6 +27,7 @@ jobs:
             exit 1
           else
             echo "No errors found in the JMeter result"
+            exit 0
           fi
           
           
