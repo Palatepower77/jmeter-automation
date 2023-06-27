@@ -1,0 +1,20 @@
+name: Jmeter Actions
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: PerfAction for JMeter
+        uses: QAInsights/PerfAction@v3.1
+        with:
+          test-plan-path: "./Palate_App.jmx"
+      - name: Convert JTL to CSV
+        run: |
+          sed -e 's/<[^>]*>//g' result.jtl > result.csv
+      - name: Upload Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: jmeter-results
+          path: result.csv
