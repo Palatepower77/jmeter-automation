@@ -21,8 +21,9 @@ jobs:
           path: result.csv
       - name: Check Result Errors
         run: |
-          error_count=$(grep -c "Err:" result.jtl)
-          if [ "$error_count" -gt 0 ]; then
+          summary=$(echo "${{ steps.jmeter.outputs.output }}" | grep -o "summary +.*")
+          error_count=$(echo "$summary" | grep -o "Err: [1-9]*")
+          if [ -n "$error_count" ]; then
             echo "There were errors in the JMeter result"
             exit 1
           else
