@@ -1,4 +1,4 @@
-name: Jmeter Actions
+name: JMeter Actions
 on: [push]
 
 jobs:
@@ -6,27 +6,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: PerfAction for JMeter
-        uses: QAInsights/PerfAction@v3.1
-        with:
-          test-plan-path: "./Palate_App.jmx"
-          args: "-l result.jtl -Jjmeter.save.saveservice.output_format=csv -Jjmeter.save.saveservice.response_data=true"
+      - name: Download JMeter
+        run: |
+          wget -O jmeter.tgz https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz
+          tar -xzf jmeter.tgz
+      - name: Run JMeter Test
+        run: |
+          ./apache-jmeter-5.5/bin/jmeter -n -t Palate_App.jmx -l result.jtl
       - name: Convert JTL to CSV
         run: |
-          jmeter -g result.jtl -o result
-          mv result/response.csv result.csv
-      - name: Upload Results
+          sed -e 's/<[^>]*>//g' result.jtl > result.csv
+      - name: Upload JTL Result
         uses: actions/upload-artifact@v2
         with:
-          name: jmeter-results
+          name: jmeter-jtl-result
+          path: result.jtl
+      - name: Upload CSV Result
+        uses: actions/upload-artifact@v2
+        with:
+          name: jmeter-csv-result
           path: result.csv
       - name: Check Result Errors
         run: |
           summary=$(echo "${{ steps.jmeter.outputs.output }}" | grep -o "summary +.*")
-          error_count=$(echo "$summary" | grep -o "Err: [1-9]*")
-          if [ -n "$error_count" ]; then
+          no_error_count=$(echo "$summary" | grep -o "Err:     0 (0.00%)")
+          if [ $no_error_count ]; then
+            echo "No errors found in the JMeter result"
+          else
             echo "There were errors in the JMeter result"
             exit 1
-          else
-            echo "No errors found in the JMeter result"
           fi
+      
