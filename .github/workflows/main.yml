@@ -12,7 +12,7 @@ jobs:
           tar -xzf jmeter.tgz
       - name: Run JMeter Test
         run: |
-          ./apache-jmeter-5.5/bin/jmeter -n -t Palate_App.jmx -l result.jtl > jmeter_output.log
+          ./apache-jmeter-5.5/bin/jmeter -n -t Palate_App_Error.jmx -l result.jtl > jmeter_output.log
       - name: Convert JTL to CSV
         run: |
           sed -e 's/<[^>]*>//g' result.jtl > result.csv
@@ -30,7 +30,7 @@ jobs:
         run: |
           jmeter_output=$(cat jmeter_output.log)
           summary=$(echo "$jmeter_output" | grep -o "summary +.*")
-          while IFS = read -r line; do
+          while read -r line; do
             error_count=$(echo "$line" | grep -o "Err: *[0-9]*" | awk -F' ' '{print $NF}')
             if [ "$error_count" -gt 0 ]; then
               echo "There were errors in the JMeter result"
@@ -38,4 +38,4 @@ jobs:
             fi
           done <<< "$summary"
           echo "No errors found in the JMeter result"
-      
+          
