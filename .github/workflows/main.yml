@@ -11,8 +11,10 @@ jobs:
           wget -O jmeter.tgz https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz
           tar -xzf jmeter.tgz
       - name: Run JMeter Test
+        env :
+          TOKEN : ${{ secrets.TOKEN }}
         run: |
-          ./apache-jmeter-5.5/bin/jmeter -n -t Palate_App.jmx -l result.jtl > jmeter_output.log
+          ./apache-jmeter-5.5/bin/jmeter -n -t Palate_App.jmx -l result.jtl > jmeter_output.log -JTOKEN=$TOKEN
       - name: Convert JTL to CSV
         run: |
           sed -e 's/<[^>]*>//g' result.jtl > result.csv
