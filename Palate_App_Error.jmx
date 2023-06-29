@@ -6281,7 +6281,7 @@ Prod baseURL -&gt; palatepowerapi.link</stringProp>
           </elementProp>
           <elementProp name="token" elementType="Argument">
             <stringProp name="Argument.name">token</stringProp>
-            <stringProp name="Argument.value">eyJraWQiOiJSbWs4b0NuYzJ0QUdja1hcL01YeTdcL09IcmtPNGhyU1pwaThiZjVJT3FwQ289IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjYTVkMTQxOC01N2I0LTQzZTktYmVhMS1mN2RhYTcwOWYxMzYiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGgtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aC0xX3poS2JBaW9SMyIsImNsaWVudF9pZCI6IjdmNGh0cmJ1NGV2cWE2ZWp0dGRkaGVtNzNrIiwib3JpZ2luX2p0aSI6IjdhYTk4MGRkLTc3N2YtNDRkYS05MTdhLTkwZGE3YWNmYmI2MSIsImV2ZW50X2lkIjoiZGI4MWE5NzgtOTA4Yy00OTE5LWJmNGMtMzQ5ZWY2MjRlNzY2IiwidG9rZW5fdXNlIjoiYWNjZXNzIiwic2NvcGUiOiJhd3MuY29nbml0by5zaWduaW4udXNlci5hZG1pbiIsImF1dGhfdGltZSI6MTY4NzE3NDY5MCwiZXhwIjoxNjg3MjYxMDkwLCJpYXQiOjE2ODcxNzQ2OTAsImp0aSI6IjQ3ODFlOThjLTdjMWQtNGEwZC1hOTZiLTZiNzJiNzExMWM0MCIsInVzZXJuYW1lIjoiOTE5NDA1NzI4OTU3In0.FN0JwG3Oth-YB5XJ8A3h1iBdsYn-yW3WwoiBxEWuHdQK20ElHnP0Z7MJpTU-6A7GPoDbwgfdu0LLfxr2yJ2XUJYhRWYO0AKqiggiio8yK_mCKosLJkxh7gLARQ4hLh6OAYFFq9dMxjLP4i_32IeP0KXZ3VmY9aNJPS4RRkyFnOfNHql6XqCq0gD-u2TlyJQJiS639ZMUPSpCF5prguOY6NVV_4mmzr-ztWolLeMuoH3E89vN1TfWt9tc4MIIuc7wYew60r61j_b5TJazcfLOuGGctx1iW913o63CDXbmxVeqd2mGD5fdhFecdOu7bRJvPbfwjWs9WG4NU2Bh4FrJqA</stringProp>
+            <stringProp name="Argument.value">${__P(TOKEN)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Enter your token</stringProp>
           </elementProp>
