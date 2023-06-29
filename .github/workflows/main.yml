@@ -14,7 +14,7 @@ jobs:
         env :
           TOKEN : ${{ secrets.TOKEN }}
         run: |
-          ./apache-jmeter-5.5/bin/jmeter -n -t Palate_App.jmx -l result.jtl > jmeter_output.log
+          ./apache-jmeter-5.5/bin/jmeter -n -t Palate_App.jmx -l result.jtl > jmeter_output.log -JTOKEN=${{ secrets.TOKEN }}
       - name: Convert JTL to CSV
         run: |
           sed -e 's/<[^>]*>//g' result.jtl > result.csv
