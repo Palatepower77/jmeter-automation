@@ -12,7 +12,7 @@ jobs:
           tar -xzf jmeter.tgz
       - name: Run JMeter Test
         run: |
-          ./apache-jmeter-5.5/bin/jmeter -JTOKEN=${{ secrets.TOKEN }} -n -t Palate_App_Error.jmx -l result.jtl > jmeter_output.log
+          ./apache-jmeter-5.5/bin/jmeter -JTOKEN=${{ secrets.TOKEN }} -n -t Palate_App.jmx -l result.jtl > jmeter_output.log
       - name: Convert JTL to CSV
         run: |
           sed -e 's/<[^>]*>//g' result.jtl > result.csv
