@@ -13,6 +13,9 @@ jobs:
       - name: Run JMeter Test
         run: |
           ./apache-jmeter-5.5/bin/jmeter -JTOKEN=${{ secrets.TOKEN }} -n -t Palate_App.jmx -l result.jtl > jmeter_output.log
+      - name: Read Result
+        run: |
+          echo "$(cat jmeter_output.log)"
       - name: Convert JTL to CSV
         run: |
           sed -e 's/<[^>]*>//g' result.jtl > result.csv
