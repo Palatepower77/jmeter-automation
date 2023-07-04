@@ -1,16 +1,19 @@
 name: JMeter Actions
 on:
   workflow_dispatch
-
 jobs:
-  build:
+  test_execution:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Welcome Message
-        run: |
-         echo "welcome to jmeter"
       - name: Execute JMeter Test
-        run: |
-         chmod +x ./.github/workflows/jmeter_script.sh
-         TOKEN="${{ secrets.TOKEN }}" ./.github/workflows/jmeter_script.sh
+        run: TOKEN="${{ secrets.TOKEN }}" bash ./.github/workflows/jmeter_script.sh run_jmeter
+      - name: Upload Result Files as Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: JMeter Result
+          path: |
+            result.csv 
+            result.jtl
+      - name: Check Result Errors
+        run: TOKEN="${{ secrets.TOKEN }}" bash ./.github/workflows/jmeter_script.sh check_result_errors
