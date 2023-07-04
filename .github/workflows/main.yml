@@ -1,41 +1,16 @@
 name: JMeter Actions
-on: [push]
+on:
+  workflow_dispatch
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Download JMeter
+      - name: Welcome Message
         run: |
-          wget -O jmeter.tgz https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.5.tgz
-          tar -xzf jmeter.tgz
-      - name: Run JMeter Test
+         echo "welcome to jmeter"
+      - name: Execute JMeter Test
         run: |
-          ./apache-jmeter-5.5/bin/jmeter -JTOKEN=${{ secrets.TOKEN }} -n -t Palate_App.jmx -l result.jtl > jmeter_output.log
-          echo "$(cat jmeter_output.log)"
-      - name: Convert JTL to CSV
-        run: |
-          sed -e 's/<[^>]*>//g' result.jtl > result.csv
-      - name: Upload JTL Result
-        uses: actions/upload-artifact@v2
-        with:
-          name: jmeter-jtl-result
-          path: result.jtl
-      - name: Upload CSV Result
-        uses: actions/upload-artifact@v2
-        with:
-          name: jmeter-csv-result
-          path: result.csv
-      - name: Check Result Errors
-        run: |
-          jmeter_output=$(cat jmeter_output.log)
-          summary=$(echo "$jmeter_output" | grep -o "summary +.*")
-          while read -r line; do
-            error_count=$(echo "$line" | grep -o "Err: *[0-9]*" | awk -F' ' '{print $NF}')
-            if [ "$error_count" -gt 0 ]; then
-              echo "There were errors in the JMeter result"
-              exit 1
-            fi
-          done <<< "$summary"
-          echo "No errors found in the JMeter result"
+         chmod +x ./.github/workflows/jmeter_script.sh
+         ./.github/workflows/jmeter_script.sh
