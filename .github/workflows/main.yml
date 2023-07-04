@@ -13,4 +13,4 @@ jobs:
       - name: Execute JMeter Test
         run: |
          chmod +x ./.github/workflows/jmeter_script.sh
-         ./.github/workflows/jmeter_script.sh
+         TOKEN="${{ secrets.TOKEN }}" ./.github/workflows/jmeter_script.sh
