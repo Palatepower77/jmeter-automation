@@ -5,7 +5,7 @@ wget -O jmeter.tgz https://archive.apache.org/dist/jmeter/binaries/apache-jmeter
 tar -xzf jmeter.tgz
 
 echo 'Run JMeter Test'
-./apache-jmeter-5.5/bin/jmeter -JTOKEN=${TOKEN} -n -t Palate_App.jmx -l result.jtl > jmeter_output.log
+./apache-jmeter-5.5/bin/jmeter -JTOKEN="${TOKEN}" -n -t Palate_App.jmx -l result.jtl > jmeter_output.log
 echo "$(cat jmeter_output.log)"
 
 echo 'Convert JTL to CSV'
