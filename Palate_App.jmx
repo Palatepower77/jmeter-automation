@@ -6607,7 +6607,7 @@ Prod baseURL -&gt; palatepowerapi.link</stringProp>
           </elementProp>
           <elementProp name="token" elementType="Argument">
             <stringProp name="Argument.name">token</stringProp>
-            <stringProp name="Argument.value">${__P(TOKEN,)}</stringProp>
+            <stringProp name="Argument.value">${__P(TOKEN)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
             <stringProp name="Argument.desc">Enter your token</stringProp>
           </elementProp>
